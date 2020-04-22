@@ -1,0 +1,25 @@
+# как запустить проект на https://labs.play-with-docker.com/
+
+Можно выбрать любой порт. Пусть 5020
+
+на 1-ой ноде:
+`docker pull mariamsu/asvk_server` - скачать образ сервера
+`docker run --rm -p 5020:5020 -e HOST="0.0.0.0" -e PORT=5020 -it mariamsu/asvk_server`
+
+на 2-ой ноде:
+`docker pull mariamsu/asvk_client` -
+`docker run --rm -e HOST="<хост 1-ой ноды>" -e PORT=5020 -it mariamsu/asvk_client`
+
+аутпут должен быть таким:
+```
+$ docker run  -e host="192.168.0.23" -e PORT=5020 -it mariamsu/asvk_client
+Sent: [[['A', 'B'], ['B', 'C'], ['C', 'D']], {'A': 10, 'B': 20, 'C': 30, 'D': 40}, 'A', ['C']]
+Received: 70
+, answer is CORRECT
+Sent: [[['A', 'B'], ['B', 'D'], ['A', 'C'], ['C', 'D']], {'A': 10, 'B': 0, 'C': 0, 'D': 40}, 'A', ['B']]
+Received: 0
+, answer is CORRECT
+Sent: [[['A', 'B']], {'A': 10, 'B': 0}, 'A', []]
+Received: 0
+, answer is CORRECT
+```
